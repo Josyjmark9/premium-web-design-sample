@@ -35,43 +35,30 @@ export function FeaturesGrid() {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    const elements = containerRef.current.querySelectorAll('.animate-grid-item');
+
     gsap.fromTo(
-      cardsRef.current,
+      elements,
       { 
         y: 60, 
         opacity: 0,
         filter: 'blur(10px)',
         scale: 0.9,
-        rotate: -2
       },
       {
         y: 0,
         opacity: 1,
         filter: 'blur(0px)',
         scale: 1,
-        rotate: 0,
         duration: 1,
-        stagger: 0.15,
+        stagger: 0.1,
         ease: 'power4.out',
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 85%',
+          end: 'bottom 15%',
           toggleActions: 'play reverse play reverse'
         },
-      }
-    );
-
-    gsap.fromTo(containerRef.current,
-      { opacity: 1, scale: 1 },
-      {
-        opacity: 0.3,
-        scale: 0.95,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'bottom 90%',
-          end: 'bottom 20%',
-          scrub: true
-        }
       }
     );
   }, []);
@@ -79,7 +66,7 @@ export function FeaturesGrid() {
   return (
     <section ref={containerRef} className="py-32 px-6 lg:px-16 max-w-7xl mx-auto relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none" />
-      <div className="flex flex-col items-center text-center mb-20 relative z-10">
+      <div className="flex flex-col items-center text-center mb-20 relative z-10 animate-grid-item">
         <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body mb-6">
           Why Us
         </div>
@@ -92,8 +79,7 @@ export function FeaturesGrid() {
         {features.map((feature, index) => (
           <div 
             key={index} 
-            ref={(el) => (cardsRef.current[index] = el)}
-            className="liquid-glass rounded-2xl p-8 flex flex-col items-start group hover:bg-white/5 transition-colors duration-500"
+            className="liquid-glass rounded-2xl p-8 flex flex-col items-start group hover:bg-white/5 transition-colors duration-500 animate-grid-item"
           >
             <div className="liquid-glass-strong rounded-full w-12 h-12 flex items-center justify-center mb-6">
               <feature.icon className="w-6 h-6 text-white" />

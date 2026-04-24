@@ -26,6 +26,28 @@ export function CtaFooter() {
         }
       }
     );
+
+    const elements = containerRef.current.querySelectorAll('.animate-cta-item');
+
+    gsap.fromTo(
+      elements,
+      { opacity: 0, y: 50, scale: 0.9, filter: 'blur(10px)' },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
+        },
+      }
+    );
   }, []);
 
   return (
@@ -39,26 +61,16 @@ export function CtaFooter() {
             </div>
 
             <div className="relative z-10 flex flex-col items-center text-center max-w-4xl">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ duration: 1 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-heading italic text-white leading-[0.85] tracking-tighter mb-8"
-                >
+                <h2 className="text-5xl md:text-7xl lg:text-8xl font-heading italic text-white leading-[0.85] tracking-tighter mb-8 animate-cta-item">
                     Your next website <br /> starts here.
-                </motion.h2>
+                </h2>
                 
-                <motion.p 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                    className="text-white/70 font-body font-light text-base md:text-lg mb-12 max-w-xl"
-                >
+                <p className="text-white/70 font-body font-light text-base md:text-lg mb-12 max-w-xl animate-cta-item">
                     Book a free strategy call. See what AI-powered design can do. 
                     No commitment, no pressure. Just possibilities.
-                </motion.p>
+                </p>
 
-                <div className="flex flex-wrap items-center justify-center gap-6">
+                <div className="flex flex-wrap items-center justify-center gap-6 animate-cta-item">
                     <motion.button 
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}

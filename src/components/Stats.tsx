@@ -33,20 +33,24 @@ export function Stats() {
       }
     });
 
+    const elements = containerRef.current.querySelectorAll('.animate-stat-item');
+
     gsap.fromTo(
-      itemsRef.current,
-      { y: 40, opacity: 0, filter: 'blur(10px)', scale: 0.8 },
+      elements,
+      { y: 60, opacity: 0, filter: 'blur(10px)', scale: 0.8 },
       {
         y: 0,
         opacity: 1,
         filter: 'blur(0px)',
         scale: 1,
         duration: 0.8,
-        stagger: 0.15,
-        ease: 'back.out(1.7)',
+        stagger: 0.1,
+        ease: 'back.out(1.5)',
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse'
         },
       }
     );
@@ -65,14 +69,13 @@ export function Stats() {
         <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-t from-black to-transparent" />
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl">
+      <div className="relative z-10 w-full max-w-6xl animate-stat-item">
         <div className="liquid-glass rounded-[2rem] p-12 md:p-20 overflow-hidden">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {stats.map((stat, index) => (
               <div 
                 key={index} 
-                ref={(el) => (itemsRef.current[index] = el)}
-                className="flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center animate-stat-item"
               >
                 <span className="text-4xl md:text-5xl lg:text-7xl font-heading italic text-white mb-2">
                   {stat.value}

@@ -29,39 +29,32 @@ export function Testimonials() {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    const elements = containerRef.current.querySelectorAll('.animate-testimonial-item');
+
     gsap.fromTo(
-      cardsRef.current,
-      { opacity: 0, scale: 0.9, y: 30 },
+      elements,
+      { opacity: 0, scale: 0.85, y: 50, filter: 'blur(10px)' },
       {
         opacity: 1,
         scale: 1,
         y: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power2.out',
+        filter: 'blur(0px)',
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 85%',
+          end: 'bottom 15%',
           toggleActions: 'play reverse play reverse'
         },
       }
     );
-
-    gsap.to(containerRef.current, {
-      opacity: 0,
-      y: -50,
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'bottom 80%',
-        end: 'bottom 10%',
-        scrub: true
-      }
-    });
   }, []);
 
   return (
     <section ref={containerRef} className="py-32 px-6 lg:px-16 max-w-7xl mx-auto">
-      <div className="flex flex-col items-center text-center mb-20">
+      <div className="flex flex-col items-center text-center mb-20 animate-testimonial-item">
         <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body mb-6">
           What They Say
         </div>
@@ -74,8 +67,7 @@ export function Testimonials() {
         {testimonials.map((t, index) => (
           <div 
             key={index} 
-            ref={(el) => (cardsRef.current[index] = el)}
-            className="liquid-glass rounded-2xl p-10 flex flex-col h-full hover:bg-white/5 transition-colors duration-500"
+            className="liquid-glass rounded-2xl p-10 flex flex-col h-full hover:bg-white/5 transition-colors duration-500 animate-testimonial-item"
           >
             <p className="text-lg md:text-xl text-white/80 font-body font-light italic mb-10 leading-relaxed">
               "{t.quote}"
